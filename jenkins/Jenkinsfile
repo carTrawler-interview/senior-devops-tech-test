@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'development', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
+                git branch: 'helm', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
             }
         }
         stage('Lint') {

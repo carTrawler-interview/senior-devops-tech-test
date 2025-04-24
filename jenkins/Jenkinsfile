@@ -1,4 +1,4 @@
-pipeline {
+mpipeline {
     agent any
     tools {
         nodejs "nodejs23.11.0"
@@ -59,7 +59,7 @@ pipeline {
                         sh """
                             export KUBECONFIG=\$KUBECONFIG
                             helm upgrade --install nodejs-app ./helm-chart \\
-                            --namespace car-trawler \\
+                            --namespace car-trawler-helm \\
                             --set image.repository=${ECR_REPO} \\
                             --set image.tag=${env.BUILD_NUMBER} \\
                         """

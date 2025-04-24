@@ -11,8 +11,7 @@ pipeline {
     }
     environment {
         AWS_REGION = 'eu-west-1'
-        ECR_REPO = '741448928302.dkr.ecr.eu-west-1.amazonaws.com'
-        IMAGE_TAG = "car-trawler-interview/nodejs-app:${env.BUILD_NUMBER}"
+        ECR_REPO = '741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-interview/nodejs-app'
     }
     stages {
         stage('Checkout') {
@@ -36,7 +35,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    env.DOCKER_IMAGE="${ECR_REPO}/${IMAGE_TAG}"
+                    env.DOCKER_IMAGE="${ECR_REPO}:${env.BUILD_NUMBER}"
                     docker.build("${DOCKER_IMAGE}", './app')
                 }
             }
@@ -58,9 +57,11 @@ pipeline {
                     file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')
                     ]) {
                         sh """
-                        export AWS_REGION=eu-west-1
-                        sed -i 's|{{DOCKER_IMAGE}}|${DOCKER_IMAGE}|g' k8s/deployment.yaml
-                        kubectl apply -f k8s/deployment.yaml --kubeconfig=\$KUBECONFIG
+                            export KUBECONFIG=\$KUBECONFIG
+                            helm upgrade --install nodejs-app ./helm-chart \\
+                            --namespace car-trawler \\
+                            --set image.repository=${ECR_REPO} \\
+                            --set image.tag=${env.BUILD_NUMBER} \\
                         """
                 }
             }

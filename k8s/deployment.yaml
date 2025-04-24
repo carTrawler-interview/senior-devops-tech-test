@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deploy
+  namespace: car-trawler
+spec:
+  selector:
+    matchLabels:
+      app: nodejs
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  minReadySeconds: 30
+  revisionHistoryLimit: 10
+  replicas: 2
+  template:
+    metadata:
+      name: nodejs-pod
+      labels:
+        app: nodejs
+    spec:
+      imagePullSecrets:
+      - name: ecr
+      containers:
+      - name: nodejs-cont
+        image: 741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-interview/nodejs-app:1
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 300m
+            memory: 500Mi
+          limits:
+            cpu: 1
+            memory: 1Gi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 3
+          timeoutSeconds: 10
+          failureThreshold: 3

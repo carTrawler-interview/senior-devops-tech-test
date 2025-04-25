@@ -40,7 +40,7 @@ ECR private repo: 741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-inter
 
 The image tag is as per the build number
 
-Pipeline Name: helm-pipeline-interview 
+Pipeline Name: helm-pipeline-interview  | Runs on github-webook
 
 Post build completion, use this as mentioned in the console:
 

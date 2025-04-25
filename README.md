@@ -25,6 +25,7 @@ ECR private repo: 741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-inter
 The image tag is as per the build number
 
 Pipeline Name: node-js-interview 
+
 Post build completion, use this as mentioned in the  console:
 
 URL: http://ad4ee035f8df843d79165974acde1c7b-1978458333.eu-west-1.elb.amazonaws.com
@@ -38,6 +39,7 @@ ECR private repo: 741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-inter
 The image tag is as per the build number
 
 Pipeline Name: helm-pipeline-interview 
+
 Post build completion, use this as mentioned in the console:
 
 URL: http://ad4ee035f8df843d79165974acde1c7b-1978458333.eu-west-1.elb.amazonaws.com/helm/

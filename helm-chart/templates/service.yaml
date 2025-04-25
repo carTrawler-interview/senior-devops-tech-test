@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: nodejs-helm
+    app: nodejs
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}

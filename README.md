@@ -30,6 +30,8 @@ Pipeline Name: node-js-interview  | Manually trigger the build
 
 Post build completion, use this as mentioned in the  console:
 
+Run the pipeline and then check the link
+
 URL: http://ad4ee035f8df843d79165974acde1c7b-1978458333.eu-west-1.elb.amazonaws.com
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -43,6 +45,8 @@ The image tag is as per the build number
 Pipeline Name: helm-pipeline-interview  | Runs on github-webook
 
 Post build completion, use this as mentioned in the console:
+
+Run the pipeline and then check the link
 
 URL: http://ad4ee035f8df843d79165974acde1c7b-1978458333.eu-west-1.elb.amazonaws.com/helm/
 

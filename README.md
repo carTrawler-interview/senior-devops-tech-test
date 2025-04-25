@@ -7,6 +7,7 @@ Branch: "helm" is deploying with helm charts
 Both pipelines are active and can be checked
 
 JENKINS URL:  http://54.170.171.220:8080/
+
 login:
 username: carTrawler
 password: carTrawler

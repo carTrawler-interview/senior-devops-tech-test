@@ -3,7 +3,7 @@ Two branches have been created: staging and production
 Branch: "staging" is deploying with kubectl - k8s and
 Branch: "production" is deploying with helm charts
 
-SLACK shared library path: vars/slackNotification.groovy
+SLACK shared library path: https://github.com/carTrawler-interview/shared-lib-slack.git
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Both pipelines are active and can be checked

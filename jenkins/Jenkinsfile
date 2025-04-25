@@ -17,7 +17,12 @@ pipeline {
     stages {
         stage('Cleanup') {
             steps {
-                sh 'scripts/deploy.sh'
+                withCredentials([
+                    aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'), 
+                    file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')
+                    ]) {
+                            sh 'scripts/deploy.sh'
+                }
             }
         }
         stage('Checkout') {

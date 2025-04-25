@@ -1,0 +1,101 @@
+@Library('shared-library') _
+pipeline {
+    agent any
+    tools {
+        nodejs "nodejs23.11.0"
+    }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '', numToKeepStr: '2')
+    }
+    triggers {
+        githubPush()
+    }
+    environment {
+        AWS_REGION = 'eu-west-1'
+        ECR_REPO = '741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-interview/nodejs-app-helm'
+    }
+    stages {
+        stage('Cleanup') {
+            steps {
+                withCredentials([
+                    aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'), 
+                    file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')
+                    ]) {
+                            sh 'scripts/delete.sh'
+
+                }
+            }
+        }
+        stage('Checkout') {
+            steps {
+                slackNotification("STARTED")
+                git branch: 'production', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
+            }
+        }
+        stage('Lint') {
+            steps {
+                sh 'yamllint k8s/'
+            }   
+        }   
+        stage('Test') {
+            steps {
+                dir('app') {
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }       
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    env.DOCKER_IMAGE="${ECR_REPO}:${env.BUILD_NUMBER}"
+                    docker.build("${DOCKER_IMAGE}", './app')
+                }
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                withCredentials([
+                    aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
+                    sh "aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${ECR_REPO}"
+                    sh "docker push ${DOCKER_IMAGE}"
+                }    
+            }
+        }
+        stage('Deploy to EKS') {
+            steps {
+                withCredentials([
+                    aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'), 
+                    file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')
+                    ]) {
+                        sh """
+                            export KUBECONFIG=\$KUBECONFIG
+                            helm upgrade --install nodejs-app ./helm-chart \\
+                            --namespace car-trawler-helm \\
+                            --set image.repository=${ECR_REPO} \\
+                            --set image.tag=${env.BUILD_NUMBER} \\
+                        """
+                }
+            }
+        }
+
+    }
+    post {
+        success {
+                slackNotification("SUCCESS")
+        }
+        failure {
+                slackNotification("FAILURE")
+                withCredentials([
+                    aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'), 
+                    file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')
+                    ]) {
+                        sh """
+                            export KUBECONFIG=\$KUBECONFIG
+                            helm rollback nodejs-app -n car-trawler-helm
+                        """
+                }
+        }
+    }
+}

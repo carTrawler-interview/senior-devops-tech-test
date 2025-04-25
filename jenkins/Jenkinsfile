@@ -15,6 +15,11 @@ pipeline {
         IMAGE_TAG = "car-trawler-interview/nodejs-app:${env.BUILD_NUMBER}"
     }
     stages {
+        stage('Cleanup') {
+            steps {
+                sh 'scripts/deploy.sh'
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'development', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'

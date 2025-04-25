@@ -8,7 +8,7 @@ Pipeline desgin:
 
 4. docker build and push
 
-5. Deploy using K8s or helm charts
+5. Deploy using K8s or helm charts with rollback deployment in production
 
 6. Notify using Slack
 

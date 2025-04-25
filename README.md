@@ -1,6 +1,6 @@
 Two branches have been created: development and helm
 
-Branch: "development" is deploying with kubectl - k8s
+Branch: "development" is deploying with kubectl - k8s and
 Branch: "helm" is deploying with helm charts
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

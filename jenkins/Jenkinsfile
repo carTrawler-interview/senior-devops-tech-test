@@ -22,6 +22,7 @@ pipeline {
                     file(credentialsId: 'KUBECONFIG', variable: 'KUBECONFIG')
                     ]) {
                             sh 'scripts/delete.sh'
+
                 }
             }
         }

@@ -8,9 +8,12 @@ Pipeline desgin:
 
 4. docker build and push
 
-5. Deploy using K8s or helm charts
+5. Deploy using K8s or helm charts with rollback deployment in production
 
 6. Notify using Slack
+
+
+- - - - - - - - - - 
 
 1.  Git checkout with sourcing github:
 Add credentials in jenkins with repo url: https://github.com/carTrawler-interview/senior-devops-tech-test.git and git pat token.
@@ -80,6 +83,7 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 
+<<<<<<< HEAD
 6. Slack notify
 slack function is placed in shared library: https://github.com/carTrawler-interview/shared-lib-slack.git
 
@@ -164,8 +168,17 @@ Install helm as well
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+=======
+Create a helm package by using : helm create nodejs-app
+Now modify the values.yaml or templates as per requirement
+package it and keep a copy
+>>>>>>> 326d3f976329aedb3708cb1235cc5726d887b6d1
 
 6. Slack notify
 slack function is placed in shared library: https://github.com/carTrawler-interview/shared-lib-slack.git
 
+<<<<<<< HEAD
 we can access it in other scripts as well.
+=======
+we can access from other scripts as well.
+>>>>>>> 326d3f976329aedb3708cb1235cc5726d887b6d1

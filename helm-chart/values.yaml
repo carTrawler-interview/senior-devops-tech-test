@@ -8,7 +8,7 @@ image:
     - name: ecr
 
 service:
-  name: nodejs-svc-helm
+  name: nodejs-svc
   type: ClusterIP
   port: 80
   targetPort: 8000

@@ -11,7 +11,7 @@ pipeline {
     }
     environment {
         AWS_REGION = 'eu-west-1'
-        ECR_REPO = '741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-interview/nodejs-app'
+        ECR_REPO = '741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-interview/nodejs-app-helm'
     }
     stages {
         stage('Checkout') {

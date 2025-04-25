@@ -26,7 +26,7 @@ ECR private repo: 741448928302.dkr.ecr.eu-west-1.amazonaws.com/car-trawler-inter
 
 The image tag is as per the build number
 
-Pipeline Name: node-js-interview 
+Pipeline Name: node-js-interview  | Manually trigger the build
 
 Post build completion, use this as mentioned in the  console:
 

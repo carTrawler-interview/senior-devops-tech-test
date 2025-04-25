@@ -26,7 +26,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 slackNotification("STARTED")
-                git branch: 'development', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
+                git branch: 'staging', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
             }
         }
         stage('Lint') {

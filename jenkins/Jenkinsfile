@@ -7,9 +7,6 @@ pipeline {
     options {
         buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '2', daysToKeepStr: '', numToKeepStr: '2')
     }
-    triggers {
-        githubPush()
-    }
     environment {
         AWS_REGION = 'eu-west-1'
         ECR_REPO = '741448928302.dkr.ecr.eu-west-1.amazonaws.com'

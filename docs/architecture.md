@@ -176,9 +176,6 @@ package it and keep a copy
 
 6. Slack notify
 slack function is placed in shared library: https://github.com/carTrawler-interview/shared-lib-slack.git
-
-<<<<<<< HEAD
-we can access it in other scripts as well.
-=======
 we can access from other scripts as well.
->>>>>>> 326d3f976329aedb3708cb1235cc5726d887b6d1
+
+Terraform in not that great

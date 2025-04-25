@@ -27,6 +27,7 @@ pipeline {
         }
         stage('Checkout') {
             steps {
+                slackNotification("STARTED")
                 git branch: 'helm', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
             }
         }
@@ -80,8 +81,11 @@ pipeline {
 
     }
     post {
-        always {
-                echo 'Pipeline completed.'
+        success {
+                slackNotification("SUCCESS")
+        }
+        failure {
+                slackNotification("FAILURE")
         }
     }
 }

@@ -93,6 +93,7 @@ pipeline {
                         sh """
                             export KUBECONFIG=\$KUBECONFIG
                             helm rollback nodejs-app -n car-trawler-helm
+                        """
                 }
         }
     }

@@ -80,10 +80,10 @@ pipeline {
 
     }
     post {
-        SUCCESS {
+        success {
                 slackNotification("SUCCESS")
         }
-        FAILURE {
+        failure {
                 slackNotification("FAILURE")
         }
     }

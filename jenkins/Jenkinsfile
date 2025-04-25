@@ -1,4 +1,5 @@
 pipeline {
+    @Library('shared-library') _
     agent any
     tools {
         nodejs "nodejs23.11.0"
@@ -27,6 +28,7 @@ pipeline {
         }
         stage('Checkout') {
             steps {
+                slackNotification("STARTED")
                 git branch: 'development', credentialsId: 'github', url: 'https://github.com/carTrawler-interview/senior-devops-tech-test.git'
             }
         }
@@ -78,8 +80,11 @@ pipeline {
 
     }
     post {
-        always {
-                echo 'Pipeline completed.'
+        SUCCESS {
+                slackNotification("SUCCESS")
+        }
+        FAILURE {
+                slackNotification("FAILURE")
         }
     }
 }

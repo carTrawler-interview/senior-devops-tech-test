@@ -178,4 +178,4 @@ package it and keep a copy
 slack function is placed in shared library: https://github.com/carTrawler-interview/shared-lib-slack.git
 we can access from other scripts as well.
 
-Terraform in not that great
+Terraform in not accurate, I have tried to write it.

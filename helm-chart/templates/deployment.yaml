@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nodejs-app.fullname" . }}-deploy-helm
+  name: {{ include "nodejs-app.fullname" . }}-deploy
   namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -14,16 +14,16 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: nodejs-helm
+      app: nodejs
   template:
     metadata:
       labels:
-        app: nodejs-helm
+        app: nodejs
     spec:
       imagePullSecrets:
         {{- toYaml .Values.image.pullSecrets | nindent 8 }}
       containers:
-        - name: nodejs-cont-helm
+        - name: nodejs-cont
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: {{ .Values.service.targetPort }}

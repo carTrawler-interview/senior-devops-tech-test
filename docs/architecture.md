@@ -12,6 +12,9 @@ Pipeline desgin:
 
 6. Notify using Slack
 
+
+- - - - - - - - - - 
+
 1.  Git checkout with sourcing github:
 Add credentials in jenkins with repo url: https://github.com/carTrawler-interview/senior-devops-tech-test.git and git pat token.
 Using pipeline syntax, generate steps in stage
@@ -79,6 +82,10 @@ Install helm as well
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+
+Create a helm package by using : helm create nodejs-app
+Now modify the values.yaml or templates as per requirement
+package it and keep a copy
 
 6. Slack notify
 slack function is placed in shared library: https://github.com/carTrawler-interview/shared-lib-slack.git

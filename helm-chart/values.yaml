@@ -20,7 +20,7 @@ ingress:
   hosts:
     - host: ad4ee035f8df843d79165974acde1c7b-1978458333.eu-west-1.elb.amazonaws.com
       paths:
-        - path: /
+        - path: /helm
           pathType: Prefix
 
 resources:
@@ -33,14 +33,14 @@ resources:
 
 probes:
   liveness:
-    path: /
+    path: /helm
     port: 8000
     initialDelaySeconds: 40
     periodSeconds: 3
     timeoutSeconds: 10
     failureThreshold: 3
   readiness:
-    path: /
+    path: /helm
     port: 8000
     initialDelaySeconds: 10
     periodSeconds: 3
